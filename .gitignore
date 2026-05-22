@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Local media and generated subtitle/OCR artifacts.
+*.avi
+*.bmp
+*.jpeg
+*.jpg
+*.jsonl
+*.mkv
+*.mov
+*.mp4
+*.mpeg
+*.mpg
+*.png
+*.srt
+*.webm
+*.webp
+
+# Generated runs are reproducible from input videos and config.
+input/
+output/
+
+# Archived prototypes and bundled binary artifacts are kept local only.
+legacy/

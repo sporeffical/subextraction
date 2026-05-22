@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "subextraction"
+version = "0.1.0"
+description = "Subtitle extraction from video frames using OpenCV crops and pluggable OCR backends."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "opencv-python>=4.8",
+  "requests>=2.31",
+]
+
+[project.optional-dependencies]
+tesseract = ["pytesseract>=0.3.10"]
+dspy = ["dspy-ai>=2.5"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+subextract = "subextraction.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

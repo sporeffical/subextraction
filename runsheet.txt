@@ -1,0 +1,27 @@
+Use the WSL helper scripts from subextraction.
+
+From PowerShell, open the project:
+
+cd C:\py_apps
+code subextraction
+Start WSL:
+
+wsl -d Ubuntu
+In WSL terminal 1, start vLLM:
+
+bash /mnt/c/py_apps/subextraction/scripts/start_vllm_qwen25vl.sh
+Leave that running. In PowerShell, you can confirm it is live:
+
+Invoke-RestMethod http://localhost:8000/v1/models
+Then in WSL terminal 2, run the new file:
+
+bash /mnt/c/py_apps/subextraction/scripts/run_cli_wsl.sh extract "input/example_video.mpg" --run-name example_video_full --scan-stride 12 --ocr-backend vllm --vllm-timeout-seconds 180
+Output will be created here:
+
+C:\py_apps\subextraction\output\example_video_full\
+Main SRT product:
+
+C:\py_apps\subextraction\output\example_video_full\subtitles.srt
+To stop vLLM afterward:
+
+pkill -f "vllm serve Qwen/Qwen2.5-VL-3B-Instruct"

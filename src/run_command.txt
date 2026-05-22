@@ -1,0 +1,13 @@
+set -eo pipefail; cd /mnt/c/py_apps/subextraction;
+pkill -f 'vllm serve Qwen/Qwen2[.]5-VL-3B-Instruct' 2>/dev/null || true;
+bash scripts/start_vllm_qwen25vl.sh & echo starting_vllm; for i in {1..90};
+do if curl -fsS http://127.0.0.1:8000/v1/models >/dev/null 2>&1;
+then echo vllm_ready; break; fi; sleep 10; done;
+curl -fsS http://127.0.0.1:8000/v1/models || { echo vllm_failed; tail -120 ~/vllm-qwen25vl-3b.log || true; exit 1; };
+bash scripts/run_cli_wsl.sh extract input/example_video_01.mpg
+--run-name example_video_01_full --scan-stride 12
+--ocr-backend vllm --vllm-timeout-seconds 180;
+bash scripts/run_cli_wsl.sh extract input/example_video_02.mpg
+--run-name example_video_02_full --scan-stride 12
+--ocr-backend vllm --vllm-timeout-seconds 180;
+pkill -f 'vllm serve Qwen/Qwen2[.]5-VL-3B-Instruct' 2>/dev/null || true

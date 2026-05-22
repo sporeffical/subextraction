@@ -1,0 +1,6 @@
+numpy>=1.24
+opencv-python>=4.8
+requests>=2.31
+
+# Optional fallback OCR backend. Requires the external Tesseract executable too.
+pytesseract>=0.3.10
